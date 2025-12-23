@@ -36,7 +36,7 @@ class PasswordGenerator:
     
     @staticmethod
     def apply_caps(word: str, pattern: str) -> str:
-        """Apply capitalization pattern"""
+        
         if pattern == 'lower':
             return word.lower()
         elif pattern == 'upper':
@@ -49,7 +49,7 @@ class PasswordGenerator:
     
     @staticmethod
     def apply_leet(word: str, intensity: int = 1) -> List[str]:
-        """Apply leetspeak substitutions"""
+        
         if intensity == 0:
             return [word]
         
@@ -150,7 +150,7 @@ class GenerationEngine:
         return count
     
     def writer_worker(self):
-        """Dedicated writer thread"""
+        
         with open(self.output_file, 'w') as f:
             while not self.stop_flag.is_set() or not self.result_queue.empty():
                 try:
