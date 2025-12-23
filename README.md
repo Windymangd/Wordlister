@@ -1,5 +1,5 @@
 # Wordlister
-A tool that generates wordlists using realistic human patterns
+A tool that generates wordlists using realistic human patterns (trust me it's difficult to recreate human patterns from scratch)
 
 The Fast one is efficient with creating large wordlists (so use it if you have a lot of words to use)
 
