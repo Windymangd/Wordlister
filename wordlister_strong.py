@@ -116,7 +116,7 @@ async def generate_words_smart(base_words, use_case, use_leet):
 
     names, numbers = split_words(base_words)
 
-    # 1️⃣ Original single-word mutations
+    #  Original single-word mutations
     for w in base_words:
         for v in mutate_final(w, use_case, use_leet):
             if v not in seen:
@@ -124,7 +124,7 @@ async def generate_words_smart(base_words, use_case, use_leet):
                 yield v
                 await asyncio.sleep(0)
 
-    # 2️⃣ Smart human patterns
+    #  Smart human patterns
     combos = combine_words(names, numbers)
     for combo in combos:
         for v in mutate_final(combo, use_case, use_leet):
