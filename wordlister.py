@@ -18,7 +18,7 @@ from textual.screen import Screen
 
 
 class PasswordGenerator:
-    """Generates password variations using common human patterns"""
+    
     
     LEET_MAP = {
         'a': ['a', '4', '@'],
