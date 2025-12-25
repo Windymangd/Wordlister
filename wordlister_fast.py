@@ -225,27 +225,27 @@ class HelpScreen(Screen):
                 yield Label(" Wordlister - Help", classes="help-title")
                 yield Label("")
                 yield Label(" Usage Guide:", classes="help-section")
-                yield Label("• Enter comma-separated words (e.g., company, admin, password)")
-                yield Label("• Optionally add a significant year (e.g., 2024)")
-                yield Label("• Choose depth level (1-3) for more combinations")
-                yield Label("• Enable/disable leetspeak and capitalization")
+                yield Label(" Enter comma-separated words (e.g., company, admin, password)")
+                yield Label(" Optionally add a significant year (e.g., 2024)")
+                yield Label(" Choose depth level (1-3) for more combinations")
+                yield Label(" Enable/disable leetspeak and capitalization")
                 yield Label("")
                 yield Label(" Generation Patterns:", classes="help-section")
-                yield Label("• Case variations: lower, UPPER, Title, First")
-                yield Label("• Leetspeak: a→4, e→3, i→1, o→0, s→5, t→7")
-                yield Label("• Word combinations with separators (-, _, .)")
-                yield Label("• Year appending/prepending")
-                yield Label("• Common suffixes (!, 123, 1)")
+                yield Label(" Case variations: lower, UPPER, Title, First")
+                yield Label(" Leetspeak: a->4, e->3, i->1, o->0, s->5, t->7")
+                yield Label(" Word combinations with separators (-, _, .)")
+                yield Label(" Year appending/prepending")
+                yield Label(" Common suffixes (!, 123, 1)")
                 yield Label("")
                 yield Label(" Performance Modes:", classes="help-section")
-                yield Label("• Normal: Uses half your CPU threads")
-                yield Label("• ThreadRipper: Unleashes all CPU threads")
+                yield Label("Normal: Uses half your CPU threads")
+                yield Label("ThreadRipper: Uses all CPU threads")
                 yield Label("")
                 yield Label(" Keyboard Shortcuts:", classes="help-section")
-                yield Label("• s - Start/Stop generation")
-                yield Label("• h - Show this help")
-                yield Label("• t - Cycle themes")
-                yield Label("• q - Quit application")
+                yield Label(" s - Start/Stop generation")
+                yield Label(" h - Show this help")
+                yield Label(" t - Cycle themes")
+                yield Label(" q - Quit application")
                 yield Label("")
                 yield Button("Close", id="close-help", variant="primary")
     
@@ -390,7 +390,7 @@ class WordlisterApp(App):
                 )
                 yield Label("Significant Year (optional):")
                 yield Input(
-                    placeholder="2024",
+                    placeholder="...",
                     id="year-input"
                 )
                 yield Label("Output File:")
@@ -429,8 +429,8 @@ class WordlisterApp(App):
         yield Footer()  # lol footer sounds funny
     
     def on_mount(self) -> None:
-        self.title = "Wordlister - Password Wordlist Generator"
-        self.sub_title = "Realistic human-pattern password generation"
+        self.title = "Wordlister"
+        self.sub_title = "supper shitty at making a lot of combinations atm"
     
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "start-btn":
@@ -503,11 +503,11 @@ class WordlisterApp(App):
         self._last_update_time = time.time()
         self._last_update_count = 0
         
-        # Update UI
+        # Update ui
         self.query_one("#start-btn", Button).disabled = True
         self.query_one("#stop-btn", Button).disabled = False
         self.query_one("#ripper-btn", Button).disabled = True
-        self.query_one("#status-label", Label).update(f"🔄 Generating ({mode} mode)...")
+        self.query_one("#status-label", Label).update(f"Generating ({mode} mode)...")
         self.notify(f"Generation started with {num_threads} threads", severity="information")
         
         # Set progress bar to indeterminate
@@ -557,14 +557,12 @@ class WordlisterApp(App):
                 self._last_update_count = count
     
     def check_completion(self):
-        """Check if generation is complete"""
         if self.generation_thread and not self.generation_thread.is_alive():
             self.on_generation_complete()
         elif self.is_generating:
             self.set_timer(0.5, self.check_completion)
     
     def on_generation_complete(self):
-        """Called when generation completes"""
         self.is_generating = False
         
         # Final update
